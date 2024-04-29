@@ -9,9 +9,9 @@
  |_|  |_\___/\__|_\_\            
  ```                            
 
-# VeWorld Mock for Playwright
+# VeWorld Mock for E2E Testing
 
-VeWorld mock allows to develop playwright tests for dApps that interact with VeWorld browser wallet.  
+VeWorld mock allows to develop playwright & Cypress tests for dApps that interact with VeWorld browser wallet.  
 
 ## Implementation
 
