@@ -47,6 +47,13 @@ VeWorld mock has the following options:
 - `fakeTxId` :  The tx id for the mock to return if `realTx` is `false`
 - `gasMultiplier` : When sending tx's to vechain thor, the gas % multiplier to use
 
+## Outputs
+
+VeWorld mock makes the following available:
+
+- `address` : The address of the account index used
+- `txId` : The last signed tx id
+
 ## Limitations
 
 - Does not mock WalletConnect

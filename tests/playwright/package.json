@@ -1,14 +1,13 @@
 {
   "name": "@repo/playwright",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Example playwright tests",
   "scripts": {
     "test": "playwright test"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "VeChain",
+  "license": "MIT",
   "devDependencies": {
     "@playwright/test": "^1.43.1",
     "@types/node": "^20.12.7"
