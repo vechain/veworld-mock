@@ -1,0 +1,13 @@
+{
+	"include": ["./src"],
+	"compilerOptions": {
+		"target": "ESNext",
+		"baseUrl": ".",
+		"allowJs": true,
+		"esModuleInterop": true,
+		"module": "CommonJS",
+		"moduleResolution": "Node",
+		"outDir": "dist",
+		"declaration": true
+	}
+}

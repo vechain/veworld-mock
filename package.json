@@ -1,0 +1,25 @@
+{
+  "name": "veworld-mock",
+  "version": "1.0.0",
+  "description": "VeWorld Mock for Playwright",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "tests/*"
+  ],
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "VeWorld",
+    "Playwright",
+    "VeChain"
+  ],
+  "author": "VeChain",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "yarn@1.22.19"
+}
