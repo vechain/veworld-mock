@@ -5,11 +5,7 @@
     "type": "module",
     "scripts": {
         "build": "tsc && vite build --mode=development",
-        "clean": "rm -rf dist .turbo",
-        "dev": "vite",
-        "gh-pages-build": "tsc && vite build",
-        "preview": "vite preview --mode=development",
-        "purge": "yarn clean; rm -rf node_modules"
+        "dev": "vite"
     },
     "dependencies": {
         "@vechain/dapp-kit-ui": "*"

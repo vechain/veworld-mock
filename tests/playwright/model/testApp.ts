@@ -11,6 +11,8 @@ export class TestApp {
     readonly veWorldButton: Locator
     readonly walletAddress: Locator
     readonly validCertificate: Locator
+    readonly testTxButton: Locator
+    readonly txidAlert: Locator
 
 
     constructor(page: Page) {
@@ -19,6 +21,8 @@ export class TestApp {
         this.veWorldButton = page.locator('div.modal-body button.card.LIGHT').first()
         this.walletAddress = page.locator('css=span.wallet-address').first()
         this.validCertificate = page.locator('css=div.alert').first()
+        this.testTxButton = page.locator('css=button#test-tx').first()
+        this.txidAlert = page.locator('css=div#txid-alert').first()
     }
 
     async clickConnectWalletButton() {
@@ -42,5 +46,15 @@ export class TestApp {
     async expectInvalidCertificate() {
         await expect(this.validCertificate).toContainText('Invalid Certificate')
     }
+
+    async clickTestTxButton() {
+        await this.testTxButton.click()
+    }
+
+    async expectTxidToBeVisible(txid: string) {
+        await expect(this.txidAlert).toBeVisible()
+        await expect(this.txidAlert).toContainText(txid)
+    }
+
 
 }

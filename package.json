@@ -9,6 +9,8 @@
     "tests/*"
   ],
   "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
     "test": "test"
   },
   "keywords": [
@@ -19,6 +21,7 @@
   "author": "VeChain",
   "license": "MIT",
   "devDependencies": {
+    "turbo": "^1.13.3",
     "typescript": "^5.4.5"
   },
   "packageManager": "yarn@1.22.19"

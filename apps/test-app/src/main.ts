@@ -27,6 +27,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <div id="cert-alert" class="alert alert-primary" role="alert" hidden></div>
         <vdk-button></vdk-button>
         <div class="label">Send test tx:</div>
+        <div id="txid-alert" class="alert alert-primary" role="alert" hidden></div>
         <button type="button" class="btn btn-light" id="test-tx" disabled>Test Transaction</button>
     </div>
 `;
@@ -51,18 +52,22 @@ const validCert = (cert: Certificate): boolean => {
 DAppKitUI.configure(vechainDAppKitOptions);
 const testTxButton = document.getElementById('test-tx');
 const certAlert = document.getElementById('cert-alert');
+const txidAlert = document.getElementById('txid-alert');
 
 if (testTxButton && certAlert) {
 
     testTxButton.addEventListener('click', async () => {
         const tx = [{
-            to: '0x7567d83b7b8d80addcb281a71d54fc7b3364ffed',
-            value: '0x0',
+            to: '0x435933c8064b4Ae76bE665428e0307eF2cCFBD68',
+            value: '0x1',
             data: '0x',
         }];
 
         try {
             const txResponse = await DAppKitUI.vendor.sign('tx', tx).request();
+            const txid = txResponse.txid;
+            txidAlert!.removeAttribute('hidden');
+            txidAlert!.innerText = `Transaction ID: ${txid}`;
             console.log('txResponse', txResponse);
         } catch (error) {
             console.error('error', error);
@@ -79,6 +84,7 @@ if (testTxButton && certAlert) {
         } else {
             testTxButton!.setAttribute('disabled', 'true');
             certAlert!.setAttribute('hidden', 'true');
+            txidAlert!.setAttribute('hidden', 'true');
         }
     };
 
