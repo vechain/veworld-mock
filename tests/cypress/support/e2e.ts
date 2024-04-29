@@ -17,9 +17,7 @@
 
 import { mockController } from "@vechain/veworld-mock/dist/veworld-mock"
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
+// install mock on before load event
 Cypress.on("window:before:load", win => {
     mockController.installMock()
 })

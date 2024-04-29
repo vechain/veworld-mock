@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { defineConfig } from "cypress"
 
 export default defineConfig({
@@ -10,7 +9,8 @@ export default defineConfig({
         trashAssetsBeforeRuns: true,
         supportFile: "./support/e2e.ts",
         video: false,
-        baseUrl: "http://localhost:8669",
-        defaultCommandTimeout: 5000
+        baseUrl: "http://localhost:5003",
+        defaultCommandTimeout: 5000, 
+        includeShadowDom: true,
     },
 })

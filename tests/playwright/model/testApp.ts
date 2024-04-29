@@ -3,7 +3,7 @@ import { Locator, expect} from '@playwright/test';
 
 
 /**
- * Admin page model
+ * Test App model
  */
 export class TestApp {
     private page: Page
@@ -20,7 +20,7 @@ export class TestApp {
         this.connectWalletButton = page.getByText('Connect Wallet', {exact: true}).first()
         this.veWorldButton = page.locator('div.modal-body button.card.LIGHT').first()
         this.walletAddress = page.locator('css=span.wallet-address').first()
-        this.validCertificate = page.locator('css=div.alert').first()
+        this.validCertificate = page.locator('css=div#cert-alert').first()
         this.testTxButton = page.locator('css=button#test-tx').first()
         this.txidAlert = page.locator('css=div#txid-alert').first()
     }
