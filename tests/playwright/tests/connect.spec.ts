@@ -11,7 +11,7 @@ test.describe('Wallet Connect', () => {
     await veWorldMockClient.installMock(page);
   });
 
-  test('Mock can sign valid certificate VeWorld', async ({ page }) => { 
+  test('Mock can sign valid certificate', async ({ page }) => { 
     const app = new TestApp(page);
     await app.clickConnectWalletButton();
     await app.clickVeWorldButton();
@@ -20,7 +20,7 @@ test.describe('Wallet Connect', () => {
     await app.expectValidCertificate();
   });
 
-  test('Mock can sign invalid certificate Veworld', async ({ page }) => { 
+  test('Mock can sign invalid certificate', async ({ page }) => { 
     veWorldMockClient.setOptions(page, {validCertificate: false});
     const app = new TestApp(page);
     await app.clickConnectWalletButton();

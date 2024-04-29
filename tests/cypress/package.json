@@ -7,8 +7,7 @@
   "author": "VeChain",
   "license": "MIT",
   "scripts": {
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "test": "cypress run"
   },
   "devDependencies": {
     "cypress": "^13.8.1"

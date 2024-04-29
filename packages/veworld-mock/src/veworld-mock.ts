@@ -4,7 +4,7 @@ import { VeWorld, VeWorldMockConfig, VeWorldMockOptions } from './types';
 
 
 // define the controller
-const mockController = {
+export const mockController = {
 
 	getSignerAddress() {
 		return window['veworld-mock-output']['address'];
