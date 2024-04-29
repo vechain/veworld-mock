@@ -25,13 +25,27 @@ functions can be configured to suit the test scenario, through a mock client.
 
 ## Installation
 
-
+TODO
 
 ## Configuration
 
+VeWorld mock has the following configuration:
 
-## Feature Options
+- `accountIndex` : The account index derived from the mnemonic
+- `chainTag` : The chain tag of the thor instance used
+- `mnemonicWords` : The mnemonic used to derived the account index
+- `thorUrl` : Url of thorest api
 
+By default VeWorld mock is configured to use a local Solo, with its default mnemonic and its first account
+
+## Options
+
+VeWorld mock has the following options:
+
+- `validCertificate` : If set to `false` then an invalid certificate will be returned
+- `realTx` : If set to `true` the mock will send the tx to vechain thor
+- `fakeTxId` :  The tx id for the mock to return if `realTx` is `false`
+- `gasMultiplier` : When sending tx's to vechain thor, the gas % multiplier to use
 
 ## Limitations
 
