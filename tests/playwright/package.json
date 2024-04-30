@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Example playwright tests",
   "scripts": {
-    "test": "playwright test"
+    "test": "playwright test",
+    "install-browsers": "npx playwright install"
   },
   "keywords": [],
   "author": "VeChain",
