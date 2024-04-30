@@ -25,7 +25,6 @@ test.describe('Wallet Connect', () => {
     const app = new TestApp(page);
     await app.clickConnectWalletButton();
     await app.clickVeWorldButton();
-    const address = await veWorldMockClient.getSignerAddress(page);
     await app.expectInvalidCertificate();
   });
 
