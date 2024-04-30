@@ -108,7 +108,7 @@ test('get outputs of mock', async ({ page }) => {
 
 To build the test app, veworld mock and vework mock client:
 
-`yarn install` 
+`yarn install`  
 `yarn build`
 
 The sample app uses Solo, to launch solo:
@@ -123,7 +123,7 @@ the test app is available at: http://localhost:5003/
 
 To run the playwright tests:
 
-`yarn install-browsers`
+`yarn install-browsers`  
 `yarn test`
 
 
