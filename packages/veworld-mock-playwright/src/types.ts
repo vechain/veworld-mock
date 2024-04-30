@@ -10,4 +10,5 @@ export type VeWorldMockClient = {
 	installMock(page: Page): Promise<void>;
 	uninstallMock(page: Page): Promise<void>;
 	load(page: Page): Promise<void>;
+	resetToDefault(page: Page): void;
 };

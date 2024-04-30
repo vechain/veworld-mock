@@ -38,6 +38,11 @@ export const veWorldMockClient: VeWorldMockClient = {
 		await page.addInitScript({
 			content: readFileSync(require.resolve('@vechain/veworld-mock/dist/veworld-mock.js'), 'utf-8')
 		});
+	},
+	resetToDefault: async (page: Page) => {
+		await page.evaluate(() => {
+			window['veworld-mock-controller'].resetToDefault();
+		});
 	}
 };
 

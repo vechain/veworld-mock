@@ -16,7 +16,7 @@
 
 # VeWorld Mock for E2E Testing
 
-VeWorld mock allows to develop playwright & Cypress tests for dApps that interact with VeWorld browser wallet.  
+VeWorld mock allows to develop playwright tests for dApps that interact with VeWorld browser wallet.  
 
 ## Implementation
 
@@ -26,7 +26,7 @@ are for certificate signing and transaction signing and sending to vechain thor.
 
 VeWorld Mock replaces those functions with its own implementation, meaning that VeWorld browser wallet
 is not needed to be installed when running playwright tests, and the mock implementations of these
-functions can be configured to suit the test scenario, through a mock client.
+functions can be configured to suit the test scenario.
 
 ## Installation
 
@@ -48,6 +48,7 @@ By default VeWorld mock is configured to use a local Solo, with its default mnem
 VeWorld mock has the following options:
 
 - `validCertificate` : If set to `false` then an invalid certificate will be returned
+- `fakeCertSignerAddress` : If `validCertificate` is set to false, the address returned as the certificate signer
 - `realTx` : If set to `true` the mock will send the tx to vechain thor
 - `fakeTxId` :  The tx id for the mock to return if `realTx` is `false`
 - `gasMultiplier` : When sending tx's to vechain thor, the gas % multiplier to use
@@ -69,9 +70,6 @@ VeWorld mock makes the following available:
 
 TODO
 
-## Cypress
-
-TODO
 
 
 

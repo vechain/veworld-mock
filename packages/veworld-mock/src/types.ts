@@ -17,10 +17,12 @@ export type VeWorldMockController = {
     setOptions(options: VeWorldMockOptions): void;
     installMock(): void;
     uninstallMock(): void;
+	resetToDefault(): void;
 };
 
 export type VeWorldMockOptions = {
     validCertificate?: boolean;
+	fakeCertSignerAddress?: string;
     realTx?: boolean;
     fakeTxId?: string;
     gasMultiplier?: number;
