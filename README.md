@@ -113,7 +113,7 @@ To build the test app, veworld mock and vework mock client:
 
 The sample app uses Solo, to launch solo:
 
-`make thor-solo`
+`make solo-up`
 
 To launch the sample app (seperte terminal):
 
