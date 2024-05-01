@@ -4,7 +4,8 @@
   "description": "Example playwright tests",
   "scripts": {
     "test": "playwright test",
-    "install-browsers": "npx playwright install"
+    "install-browsers": "npx playwright install",
+    "show-report": "playwright show-report"
   },
   "keywords": [],
   "author": "VeChain",

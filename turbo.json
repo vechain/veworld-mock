@@ -13,6 +13,9 @@
     },
     "install-browsers": {
       "cache": false
+    },
+    "show-report": {
+      "cache": false
     }
   }
 }

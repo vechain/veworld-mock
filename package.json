@@ -12,7 +12,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "test": "turbo run test",
-    "install-browsers": "turbo run install-browsers"
+    "install-browsers": "turbo run install-browsers",
+    "show-report": "turbo run show-report"
   },
   "keywords": [
     "VeWorld",
