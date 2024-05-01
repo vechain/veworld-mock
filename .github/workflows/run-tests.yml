@@ -1,0 +1,46 @@
+name: Run Tests
+
+on:
+    workflow_dispatch:
+
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    run-tests:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+            
+            - name: Install dependencies
+              run: yarn install
+
+            - name: Build
+              run: yarn build
+
+            - name: Start solo
+              run: make solo-up
+
+            - name: Launch test app
+              run: cd apps/test-app && yarn dev &
+
+            - name: Install browsers
+              run: yarn install-browsers            
+
+            - name: Run tests
+              id: run-tests
+              run: yarn test
+
+            - name: Upload test results
+              uses: actions/upload-artifact@v2
+              with:
+                name: playwright-results
+                path: ./tests/playwright/playwright-report
+                retention-days: 5
+
+              
