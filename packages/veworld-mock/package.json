@@ -1,6 +1,6 @@
 {
 	"name": "@vechain/veworld-mock",
-	"version": "1.0.0",
+	"version": "1.0.0-beta.1",
 	"description": "VeWorld mock",
 	"main": "dist/veworld-mock.js",
 	"types": "dist/types.d.ts",
