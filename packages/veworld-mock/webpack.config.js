@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-	entry: './src/veworld-mock.ts',
+	entry: './src/mock-controller.ts',
 	mode: 'production',
 	performance: {
 		hints: false,

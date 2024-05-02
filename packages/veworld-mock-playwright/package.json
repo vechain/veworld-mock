@@ -9,6 +9,10 @@
 	"keywords": [],
 	"author": "vechain",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/vechain/veworld-mock.git"
+	},
 	"devDependencies": {
 		"@types/node": "^20.11.30",
 		"typescript": "^5.4.3"
