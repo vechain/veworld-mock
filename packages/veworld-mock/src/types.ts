@@ -25,6 +25,7 @@ export type VeWorldMockOptions = {
 	fakeCertSignerAddress?: string;
     realTx?: boolean;
     fakeTxId?: string;
+	revertTx?: boolean;
     gasMultiplier?: number;
 };
 

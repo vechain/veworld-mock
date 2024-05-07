@@ -47,11 +47,14 @@ By default VeWorld mock is configured to use a local Solo, with its default mnem
 
 VeWorld mock has the following options:
 
-- `validCertificate` : If set to `false` then an invalid certificate will be returned
-- `fakeCertSignerAddress` : If `validCertificate` is set to false, the address returned as the certificate signer
-- `realTx` : If set to `true` the mock will send the tx to vechain thor
-- `fakeTxId` :  The tx id for the mock to return if `realTx` is `false`
-- `gasMultiplier` : When sending tx's to vechain thor, the gas % multiplier to use
+- `validCertificate` : If set to `false` then an invalid certificate will be returned (default: true)
+- `fakeCertSignerAddress` : If `validCertificate` is set to false, the address returned as the certificate signer (default: 0x0)
+- `realTx` : If set to `true` the mock will send the tx to vechain thor (default: true)
+- `fakeTxId` :  The tx id for the mock to return if `realTx` is `false` (default: 0x0)
+- `revertTx` : When `realTx` is set to True this will intentionally make the transaction revert (defaul: false)
+- `gasMultiplier` : When sending tx's to vechain thor, the gas % multiplier to use (default: 0.2)
+
+(Note: To generate a reverted tx, a vet transfer clause of 10billion is added to the tx)
 
 ## Outputs
 

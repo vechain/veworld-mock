@@ -13,6 +13,7 @@ export class TestApp {
     readonly validCertificate: Locator
     readonly testTxButton: Locator
     readonly txidAlert: Locator
+    readonly revertedAlert: Locator
 
 
     constructor(page: Page) {
@@ -23,6 +24,7 @@ export class TestApp {
         this.validCertificate = page.locator('css=div#cert-alert').first()
         this.testTxButton = page.locator('css=button#test-tx').first()
         this.txidAlert = page.locator('css=div#txid-alert').first()
+        this.revertedAlert = page.locator('css=div#reverted-alert').first()
     }
 
     async clickConnectWalletButton() {
@@ -51,9 +53,17 @@ export class TestApp {
         await this.testTxButton.click()
     }
 
-    async expectTxidToBeVisible(txid: string) {
+    async expectTxidToBeVisible() {
         await expect(this.txidAlert).toBeVisible()
+    }
+
+    async expectTxIdToBe(txid: string) {
         await expect(this.txidAlert).toContainText(txid)
+    }
+
+    async expectTxRevertedVisible() {
+        await expect(this.revertedAlert).toBeVisible()
+        await expect(this.revertedAlert).toContainText('Transaction was reverted')
     }
 
 

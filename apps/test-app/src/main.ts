@@ -1,5 +1,6 @@
 import { DAppKitUI } from '@vechain/dapp-kit-ui';
 import { Certificate } from 'thor-devkit';
+import { Connex } from '@vechain/connex'
 
 const soloGenesis = {
     "number": 0,
@@ -28,6 +29,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <vdk-button></vdk-button>
         <div class="label">Send test tx:</div>
         <div id="txid-alert" class="alert alert-primary" role="alert" hidden></div>
+        <div id="reverted-alert" class="alert alert-primary" role="alert" hidden></div>
         <button type="button" class="btn btn-light" id="test-tx" disabled>Test Transaction</button>
     </div>
 `;
@@ -37,6 +39,8 @@ const vechainDAppKitOptions = {
     genesis: soloGenesis,
     usePersistence: true,
 };
+
+const connexInstance = new Connex({ node: 'http://localhost:8669', network: soloGenesis})
 
 const validCert = (cert: Certificate): boolean => {
     let isValid = false;
@@ -53,21 +57,36 @@ DAppKitUI.configure(vechainDAppKitOptions);
 const testTxButton = document.getElementById('test-tx');
 const certAlert = document.getElementById('cert-alert');
 const txidAlert = document.getElementById('txid-alert');
+const revertedAlert = document.getElementById('reverted-alert');
 
 if (testTxButton && certAlert) {
 
     testTxButton.addEventListener('click', async () => {
-        const tx = [{
+        const testTx = [{
             to: '0x435933c8064b4Ae76bE665428e0307eF2cCFBD68',
             value: '0x1',
             data: '0x',
         }];
 
         try {
-            const txResponse = await DAppKitUI.vendor.sign('tx', tx).request();
+            const txResponse = await DAppKitUI.vendor.sign('tx', testTx).request();
             const txid = txResponse.txid;
+            // display tx id
             txidAlert!.removeAttribute('hidden');
             txidAlert!.innerText = `Transaction ID: ${txid}`;
+            // display if reverted
+            const ticker = connexInstance.thor.ticker();
+            await ticker.next();
+            const tx = connexInstance.thor.transaction(txid);
+            const txDetail = await tx.get();
+            const receipt = await tx.getReceipt();
+            console.log(JSON.stringify(txDetail));
+            console.log(JSON.stringify(receipt));
+            if (receipt && receipt.reverted) {
+                console.log('Transaction was reverted');
+                revertedAlert!.removeAttribute('hidden');
+                revertedAlert!.innerText = 'Transaction was reverted';
+            } 
             console.log('txResponse', txResponse);
         } catch (error) {
             console.error('error', error);
@@ -85,6 +104,7 @@ if (testTxButton && certAlert) {
             testTxButton!.setAttribute('disabled', 'true');
             certAlert!.setAttribute('hidden', 'true');
             txidAlert!.setAttribute('hidden', 'true');
+            revertedAlert!.setAttribute('hidden', 'true');
         }
     };
 
