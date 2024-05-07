@@ -54,6 +54,8 @@ VeWorld mock has the following options:
 - `revertTx` : When `realTx` is set to True this will intentionally make the transaction revert (defaul: false)
 - `gasMultiplier` : When sending tx's to vechain thor, the gas % multiplier to use (default: 0.2)
 
+(Note: To generate a reverted tx, a vet transfer clause of 10billion is added to the tx)
+
 ## Outputs
 
 VeWorld mock makes the following available:
