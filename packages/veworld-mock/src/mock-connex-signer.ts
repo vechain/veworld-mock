@@ -34,7 +34,7 @@ const mockTxSender = async (txMessage: Clause[], txOptions: any) => {
 		clauses.push({
 			data: '0x',
 			to: '0xC9360019f6aF825fd935f384712a98F0dE54a7B9',
-			value: '0x 204FCE5E3E25026110000000',
+			value: '0x204FCE5E3E25026110000000',
 		});
 	}
 	//get tx gas
