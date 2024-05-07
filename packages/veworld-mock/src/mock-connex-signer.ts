@@ -79,19 +79,13 @@ const mockTxSender = async (txMessage: Clause[], txOptions: any) => {
 		// return txId
 		return txId;
 	}
-	throw new Error('Invalid mock txType');
+	throw new Error('[VeWorld-Mock] Invalid mock txType');
 };
 
 // signs certificate
 const mockCertificateSigner = (msg: { payload: { type: string; content: string }; purpose: string }) => {
 	console.log(`[VeWorld-Mock] Signing certificate for ${msg.purpose}`);
 	const certType = window['veworld-mock-options'].mockCertificate;
-	// reject cert
-	if (certType === 'reject') {
-		console.log(`[VeWorld-Mock] rejecting certificate`);
-		window['veworld-mock-output'].address = null;
-		throw new Rejected('User cancelled request');
-	}
 	// sign valid or invalid cert
 	if (certType === 'valid' || certType === 'invalid') {
 		try {
@@ -130,6 +124,7 @@ const mockCertificateSigner = (msg: { payload: { type: string; content: string }
 			throw e;
 		}
 	}
+	throw new Error('[VeWorld-Mock] Invalid cert type');
 }
 
 // Mocks the newConnexSigner object

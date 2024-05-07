@@ -21,7 +21,7 @@ export type VeWorldMockController = {
 };
 
 export type MockTransactionType = 'real' | 'fake' | 'revert' | 'reject';
-export type MockCertificateType = 'valid' | 'invalid' | 'reject';
+export type MockCertificateType = 'valid' | 'invalid';
 
 export type VeWorldMockOptions = {
 	mockTransaction?: MockTransactionType;

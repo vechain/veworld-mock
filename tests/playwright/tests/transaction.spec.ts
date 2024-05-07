@@ -52,7 +52,18 @@ test.describe('Transactions', () => {
     const txid = await veWorldMockClient.getSenderTxId(page);
     await app.expectTxIdToBe(txid);
     await app.expectTxRevertedVisible();
+  });
 
+  test('Mock can reject to sign a transaction', async ({ page }) => { 
+    const app = new TestApp(page);
+    await app.clickConnectWalletButton();
+    await app.clickVeWorldButton();
+    const address = await veWorldMockClient.getSignerAddress(page);
+    await app.expectAddressToBeVisible(address);
+    await app.expectValidCertificate();
+    await veWorldMockClient.setOptions(page, { mockTransaction: 'reject'});
+    await app.clickTestTxButton();
+    await app.expectTxRejectedToBeVisible();
   });
 
 
