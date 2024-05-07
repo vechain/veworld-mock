@@ -17,11 +17,10 @@ const setupDefaults = () => {
 
 	// setup the default mock options
 	window['veworld-mock-options'] = {
-		validCertificate: true,
 		fakeCertSignerAddress: '0x0',
-		realTx: true,
 		fakeTxId: '0x0',
-		revertTx: false,
+		mockTransaction: 'real',
+		mockCertificate: 'valid',
 		gasMultiplier: 0.2
 	}
 
@@ -38,12 +37,12 @@ export const mockController: VeWorldMockController = {
 
 	getSignerAddress() {
 		console.log('[VeWorld-Mock] Getting signer address');
-		return window['veworld-mock-output']['address'];
+		return window['veworld-mock-output'].address;
 	},
 
 	getSenderTxId() {
 		console.log('[VeWorld-Mock] Getting sender txId');
-		return window['veworld-mock-output']['txId'];
+		return window['veworld-mock-output'].txId;
 	},
 
 	installMock() {
@@ -62,40 +61,12 @@ export const mockController: VeWorldMockController = {
 
 	setConfig(config: VeWorldMockConfig) {
 		console.log('[VeWorld-Mock] Setting config');
-		if (config.accountIndex !== undefined) {
-			window['veworld-mock-config'].accountIndex = config.accountIndex;
-		}
-		if (config.chainTag !== undefined) {
-			window['veworld-mock-config'].chainTag = config.chainTag;
-		}
-		if (config.mnemonicWords !== undefined) {
-			window['veworld-mock-config'].mnemonicWords = config.mnemonicWords;
-		}
-		if (config.thorUrl !== undefined) {
-			window['veworld-mock-config'].thorUrl = config.thorUrl;
-		}
+		window['veworld-mock-config'] = config;
 	},
 
 	setOptions(options: VeWorldMockOptions) {
 		console.log('[VeWorld-Mock] Setting options');
-		if (options.validCertificate !== undefined) {
-			window['veworld-mock-options'].validCertificate = options.validCertificate;
-		}
-		if (options.realTx !== undefined) {
-			window['veworld-mock-options'].realTx = options.realTx;
-		}
-		if (options.fakeTxId !== undefined) {
-			window['veworld-mock-options'].fakeTxId = options.fakeTxId;
-		}
-		if (options.gasMultiplier !== undefined) {
-			window['veworld-mock-options'].gasMultiplier = options.gasMultiplier;
-		}
-		if (options.fakeCertSignerAddress !== undefined) {
-			window['veworld-mock-options'].fakeCertSignerAddress = options.fakeCertSignerAddress;
-		}
-		if (options.revertTx !== undefined) {
-			window['veworld-mock-options'].revertTx = options.revertTx;
-		}
+		window['veworld-mock-options'] = options;
 	},
 
 	uninstallMock() {
