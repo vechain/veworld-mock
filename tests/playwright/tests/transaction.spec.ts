@@ -18,9 +18,11 @@ test.describe('Transactions', () => {
     const address = await veWorldMockClient.getSignerAddress(page);
     await app.expectAddressToBeVisible(address);
     await app.expectValidCertificate();
+    await veWorldMockClient.setOptions(page, { realTx: true });
     await app.clickTestTxButton();
+    await app.expectTxidToBeVisible();
     const txid = await veWorldMockClient.getSenderTxId(page);
-    await app.expectTxidToBeVisible(txid);
+    await app.expectTxIdToBe(txid);
   });
 
   test('Mock can return fake tx id', async ({ page }) => { 
@@ -30,10 +32,27 @@ test.describe('Transactions', () => {
     const address = await veWorldMockClient.getSignerAddress(page);
     await app.expectAddressToBeVisible(address);
     await app.expectValidCertificate();
-    await veWorldMockClient.setOptions(page, { fakeTxId: '0x0' });
+    await veWorldMockClient.setOptions(page, { realTx: false, fakeTxId: '0x0' });
     await app.clickTestTxButton();
+    await app.expectTxidToBeVisible();
     const txid = await veWorldMockClient.getSenderTxId(page);
-    await app.expectTxidToBeVisible(txid);
+    await app.expectTxIdToBe(txid);
+  });
+
+  test('Mock can make a transaction revert', async ({ page }) => { 
+    const app = new TestApp(page);
+    await app.clickConnectWalletButton();
+    await app.clickVeWorldButton();
+    const address = await veWorldMockClient.getSignerAddress(page);
+    await app.expectAddressToBeVisible(address);
+    await app.expectValidCertificate();
+    await veWorldMockClient.setOptions(page, { realTx: true, revertTx: true});
+    await app.clickTestTxButton();
+    await app.expectTxidToBeVisible();
+    const txid = await veWorldMockClient.getSenderTxId(page);
+    await app.expectTxIdToBe(txid);
+    await app.expectTxRevertedVisible();
+
   });
 
 

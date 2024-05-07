@@ -8,6 +8,7 @@
         "dev": "vite"
     },
     "dependencies": {
+        "@vechain/connex": "^2.1.0",
         "@vechain/dapp-kit-ui": "*"
     },
     "devDependencies": {

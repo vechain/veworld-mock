@@ -18,8 +18,10 @@ const setupDefaults = () => {
 	// setup the default mock options
 	window['veworld-mock-options'] = {
 		validCertificate: true,
-		realTx: false,
+		fakeCertSignerAddress: '0x0',
+		realTx: true,
 		fakeTxId: '0x0',
+		revertTx: false,
 		gasMultiplier: 0.2
 	}
 
@@ -90,6 +92,9 @@ export const mockController: VeWorldMockController = {
 		}
 		if (options.fakeCertSignerAddress !== undefined) {
 			window['veworld-mock-options'].fakeCertSignerAddress = options.fakeCertSignerAddress;
+		}
+		if (options.revertTx !== undefined) {
+			window['veworld-mock-options'].revertTx = options.revertTx;
 		}
 	},
 

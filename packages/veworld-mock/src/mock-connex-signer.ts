@@ -27,15 +27,28 @@ const mockTxSender = async (txMessage: Clause[], txOptions: any) => {
 	}
 	const senderAddress = childNode.address;
 	const latestBlock = await thorClient.blocks.getBestBlockCompressed();
+	//check if to make revert
+	if (window['veworld-mock-options'].revertTx) {
+		console.log('[VeWorld-Mock] making reverting transaction');
+		// add an invalid clause
+		clauses.push({
+			data: '0x',
+			to: '0xC9360019f6aF825fd935f384712a98F0dE54a7B9',
+			value: '0x 204FCE5E3E25026110000000',
+		});
+	}
+	//get tx gas
 	const gasMultiplier = window['veworld-mock-options'].gasMultiplier!;
 	const gasResult = await thorClient.gas.estimateGas(clauses, senderAddress, { gasPadding: gasMultiplier });
+	const totalGas = Math.ceil(gasResult.totalGas);
+	// create tx body
 	const txBody = {
 		blockRef: latestBlock !== null ? latestBlock.id.slice(0, 18) : '0x0',
 		chainTag: window['veworld-mock-config'].chainTag!,
 		clauses: clauses,
 		dependsOn: null,
 		expiration: 18,
-		gas: Math.ceil(gasResult.totalGas),
+		gas: totalGas,
 		gasPriceCoef: 0,
 		nonce: 0,
 	};
