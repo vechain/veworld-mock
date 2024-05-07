@@ -30,7 +30,10 @@ functions can be configured to suit the test scenario.
 
 ## Installation
 
-TODO
+Add the dependencies to your project
+
+`yarn add --dev @vechain/veworld-mock`  
+`yarn add --dev @vechain/veworld-mock-playwright`
 
 ## Configuration
 
@@ -47,14 +50,35 @@ By default VeWorld mock is configured to use a local Solo, with its default mnem
 
 VeWorld mock has the following options:
 
-- `validCertificate` : If set to `false` then an invalid certificate will be returned (default: true)
-- `fakeCertSignerAddress` : If `validCertificate` is set to false, the address returned as the certificate signer (default: 0x0)
-- `realTx` : If set to `true` the mock will send the tx to vechain thor (default: true)
-- `fakeTxId` :  The tx id for the mock to return if `realTx` is `false` (default: 0x0)
-- `revertTx` : When `realTx` is set to True this will intentionally make the transaction revert (defaul: false)
-- `gasMultiplier` : When sending tx's to vechain thor, the gas % multiplier to use (default: 0.2)
+### Transactions
+
+* `mockTransaction`: specifies the type of transaction to create, values are {real, fake, reject}
+  * `real` --> The mock will create a real transaction
+  * `fake` --> The mock will return the configured fake transaction id
+  * `reject` --> The mock will return an error similar to when the user clicks on Reject in VeWorld 
+* `fakeTxId` --> The transaction id to use when using `fake`
+* `gasMultiplier` : When using `real` or `fake` the gas % multiplier to use when estimating the transaction gas
+
+The default values are: 
+
+```
+fakeCertSignerAddress: '0x0',
+fakeTxId: '0x0',
+mockTransaction: 'real',
+mockCertificate: 'valid',
+gasMultiplier: 0.2
+```
 
 (Note: To generate a reverted tx, a vet transfer clause of 10billion is added to the tx)
+
+### Certificates
+
+* `mockCertificate` : Specified how to mock the certificate signing, values are {valid, invalid}
+  * `valid` --> Certificate will be signed correctly
+  * `invalid` --> The certificate is signed correctly, but the `signer` is set to the fake address
+* `fakeCertSignerAddress` --> When using `invalid` the fake signer address
+
+
 
 ## Outputs
 
