@@ -10,19 +10,19 @@ class Rejected extends Error {
 // Signs and potentially sends a transaction
 // txOptions currently not used so doesn't support dependant or delegated txs
 const mockTxSender = async (txMessage: Clause[], txOptions: any) => {
-	console.log('[VeWorld-Mock] Signing/Sending transaction');
 	const txType = window['veworld-mock-options'].mockTransaction;
+	console.log(`[VeWorld-Mock] Signing/Sending transaction of type ${txType}`);
+	window['veworld-mock-output'].txId = null;
 	// return fake tx
 	if (txType === 'fake') {
 		const fakeTxId = window['veworld-mock-options'].fakeTxId;
 		console.log(`[VeWorld-Mock] returning fake txId: ${fakeTxId}`);
-		window['veworld-mock-output'].txId = window['veworld-mock-options'].fakeTxId;
-		return window['veworld-mock-options'].fakeTxId;
+		window['veworld-mock-output'].txId = fakeTxId;
+		return fakeTxId;
 	}
 	// reject tx
 	if (txType === 'reject') {
 		console.log(`[VeWorld-Mock] rejecting transaction`);
-		window['veworld-mock-output'].txId = null;
 		throw new Rejected('User cancelled request');
 	}
 	// real tx
@@ -76,6 +76,7 @@ const mockTxSender = async (txMessage: Clause[], txOptions: any) => {
 		const txId = send.id;
 		// record txId
 		window['veworld-mock-output'].txId = txId;
+		console.log(`[VeWorld-Mock] Real tx id ${txId}`);
 		// return txId
 		return txId;
 	}
@@ -84,8 +85,9 @@ const mockTxSender = async (txMessage: Clause[], txOptions: any) => {
 
 // signs certificate
 const mockCertificateSigner = (msg: { payload: { type: string; content: string }; purpose: string }) => {
-	console.log(`[VeWorld-Mock] Signing certificate for ${msg.purpose}`);
 	const certType = window['veworld-mock-options'].mockCertificate;
+	console.log(`[VeWorld-Mock] Signing certificate of type ${certType} for ${msg.purpose}`);
+	window['veworld-mock-output'].address = null;
 	// sign valid or invalid cert
 	if (certType === 'valid' || certType === 'invalid') {
 		try {

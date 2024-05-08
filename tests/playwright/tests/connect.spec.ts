@@ -21,7 +21,7 @@ test.describe('Wallet Connect', () => {
   });
 
   test('Mock can sign invalid certificate', async ({ page }) => { 
-    veWorldMockClient.setOptions(page, {mockCertificate: 'invalid', fakeCertSignerAddress: "0x865306084235Bf804c8Bba8a8d56890940ca8F0b"});
+    await veWorldMockClient.setOptions(page, {mockCertificate: 'invalid', fakeCertSignerAddress: "0x865306084235Bf804c8Bba8a8d56890940ca8F0b"});
     const app = new TestApp(page);
     await app.clickConnectWalletButton();
     await app.clickVeWorldButton();
