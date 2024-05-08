@@ -1,12 +1,17 @@
 {
 	"name": "@vechain/veworld-mock-playwright",
-	"version": "1.0.0-beta.1",
+	"version": "1.0.0",
 	"description": "VeWorld Mock client for playwright",
 	"main": "dist/client.js",
 	"scripts": {
 		"build": "tsc"
 	},
-	"keywords": [],
+	"keywords": [
+		"vechain",
+		"veworld",
+		"mock",
+		"playwright"
+	],
 	"author": "vechain",
 	"license": "MIT",
 	"repository": {

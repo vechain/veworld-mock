@@ -14,23 +14,27 @@
 ╚═╝     ╚═╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝                                                                                        
  ```                            
 
-# VeWorld Mock for E2E Testing
+## Sample App and Tests
 
-This repository contains packages:
+To build the test app, veworld mock and vework mock client:
 
-* test-app : A simple webapp using DappKit & Connex for testing of the mock
-* veworld-mock : The actual mock implementation
-* vework-mock-playwright : A helper packing for using the mock in playwright tests
-* tests : Sample playwright tests using the test-app
+`yarn install`  
+`yarn build`
 
-See documentation:
+The sample app uses Solo, to launch solo:
 
-* [veworld-mock](./packages/veworld-mock/README.md)
-* [veworld-mock-playwright](./packages/veworld-mock-playwright/README.md)
-* [sample tests](./tests/playwright/README.md)
+`make solo-up`
 
+To launch the sample app (seperte terminal):
 
+`yarn dev`
 
+the test app is available at: http://localhost:5003/
+
+To run the playwright tests:
+
+`yarn install-browsers`  
+`yarn test`
 
 
 
