@@ -1,13 +1,17 @@
 {
 	"name": "@vechain/veworld-mock",
-	"version": "1.0.0-beta.1",
+	"version": "1.0.0",
 	"description": "VeWorld mock",
 	"main": "dist/veworld-mock.js",
 	"types": "dist/types.d.ts",
 	"scripts": {
 		"build": "webpack --config webpack.config.js"
 	},
-	"keywords": [],
+	"keywords": [
+		"vechain",
+		"veworld",
+		"mock"
+	],
 	"author": "vechain",
 	"license": "MIT",
 	"repository": {
