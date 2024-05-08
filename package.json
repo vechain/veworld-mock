@@ -2,6 +2,7 @@
   "name": "veworld-mock",
   "version": "1.0.0",
   "description": "VeWorld Mock for Playwright",
+  "private": true,
   "workspaces": [
     "packages/*",
     "apps/*",
