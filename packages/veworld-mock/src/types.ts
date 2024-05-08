@@ -20,14 +20,18 @@ export type VeWorldMockController = {
 	resetToDefault(): void;
 };
 
+export type MockTransactionType = 'real' | 'fake' | 'revert' | 'reject';
+export type MockCertificateType = 'valid' | 'invalid';
+
 export type VeWorldMockOptions = {
-    validCertificate?: boolean;
+	mockTransaction?: MockTransactionType;
+	mockCertificate?: MockCertificateType;
+	fakeTxId?: string;
 	fakeCertSignerAddress?: string;
-    realTx?: boolean;
-    fakeTxId?: string;
-	revertTx?: boolean;
     gasMultiplier?: number;
 };
+
+
 
 export type VeWorld = {
     isVeWorld: boolean;

@@ -66,5 +66,10 @@ export class TestApp {
         await expect(this.revertedAlert).toContainText('Transaction was reverted')
     }
 
+    async expectTxRejectedToBeVisible() {
+        await expect(this.txidAlert).toBeVisible()
+        await expect(this.txidAlert).toContainText('User cancelled request')
+    }
+
 
 }

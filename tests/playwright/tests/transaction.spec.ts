@@ -18,7 +18,7 @@ test.describe('Transactions', () => {
     const address = await veWorldMockClient.getSignerAddress(page);
     await app.expectAddressToBeVisible(address);
     await app.expectValidCertificate();
-    await veWorldMockClient.setOptions(page, { realTx: true });
+    await veWorldMockClient.setOptions(page, { mockTransaction: 'real' });
     await app.clickTestTxButton();
     await app.expectTxidToBeVisible();
     const txid = await veWorldMockClient.getSenderTxId(page);
@@ -32,7 +32,7 @@ test.describe('Transactions', () => {
     const address = await veWorldMockClient.getSignerAddress(page);
     await app.expectAddressToBeVisible(address);
     await app.expectValidCertificate();
-    await veWorldMockClient.setOptions(page, { realTx: false, fakeTxId: '0x0' });
+    await veWorldMockClient.setOptions(page, { mockTransaction: 'fake', fakeTxId: '0x0' });
     await app.clickTestTxButton();
     await app.expectTxidToBeVisible();
     const txid = await veWorldMockClient.getSenderTxId(page);
@@ -46,13 +46,24 @@ test.describe('Transactions', () => {
     const address = await veWorldMockClient.getSignerAddress(page);
     await app.expectAddressToBeVisible(address);
     await app.expectValidCertificate();
-    await veWorldMockClient.setOptions(page, { realTx: true, revertTx: true});
+    await veWorldMockClient.setOptions(page, { mockTransaction: 'revert'});
     await app.clickTestTxButton();
     await app.expectTxidToBeVisible();
     const txid = await veWorldMockClient.getSenderTxId(page);
     await app.expectTxIdToBe(txid);
     await app.expectTxRevertedVisible();
+  });
 
+  test('Mock can reject to sign a transaction', async ({ page }) => { 
+    const app = new TestApp(page);
+    await app.clickConnectWalletButton();
+    await app.clickVeWorldButton();
+    const address = await veWorldMockClient.getSignerAddress(page);
+    await app.expectAddressToBeVisible(address);
+    await app.expectValidCertificate();
+    await veWorldMockClient.setOptions(page, { mockTransaction: 'reject'});
+    await app.clickTestTxButton();
+    await app.expectTxRejectedToBeVisible();
   });
 
 

@@ -69,7 +69,19 @@ if (testTxButton && certAlert) {
         }];
 
         try {
-            const txResponse = await DAppKitUI.vendor.sign('tx', testTx).request();
+            let txResponse: Connex.Vendor.TxResponse;
+            try {
+                // request to sign tx
+                txResponse = await DAppKitUI.vendor.sign('tx', testTx).request();
+            } catch (error) {
+                // display error
+                let message = 'Unknown error';
+                if (error instanceof Error) message = error.message;
+                txidAlert!.removeAttribute('hidden');
+                txidAlert!.innerText = `Transaction Error: ${message}`;
+                return;
+            }
+            // get tx id
             const txid = txResponse.txid;
             // display tx id
             txidAlert!.removeAttribute('hidden');
