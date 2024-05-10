@@ -35,7 +35,7 @@ To configure the mock within a test:
 import { veWorldMockClient } from '@vechain/veworld-mock-playwright'
 
 test('Configure mock', async ({ page }) => { 
-  veWorldMockClient.setOptions(page, {validCertificate: false, fakeCertSignerAddress: "0x865306084235Bf804c8Bba8a8d56890940ca8F0b"});
+  await veWorldMockClient.setOptions(page, {mockCertificate: 'invalid', fakeCertSignerAddress: "0x865306084235Bf804c8Bba8a8d56890940ca8F0b"});
 })
 ```
 
