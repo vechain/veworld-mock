@@ -61,12 +61,16 @@ export const mockController: VeWorldMockController = {
 
 	setConfig(config: VeWorldMockConfig) {
 		console.log('[VeWorld-Mock] Setting config');
-		window['veworld-mock-config'] = config;
+		const currentConfig = window['veworld-mock-config'];
+		const mergedConfig = Object.assign(currentConfig, config)
+		window['veworld-mock-config'] = mergedConfig;
 	},
 
 	setOptions(options: VeWorldMockOptions) {
 		console.log('[VeWorld-Mock] Setting options');
-		window['veworld-mock-options'] = options;
+		const currentOptions = window['veworld-mock-options'];
+		const mergedOptions = Object.assign(currentOptions, options);
+		window['veworld-mock-options'] = mergedOptions;
 	},
 
 	uninstallMock() {
