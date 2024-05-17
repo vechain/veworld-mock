@@ -24,6 +24,6 @@
 	},
 	"dependencies": {
 		"@playwright/test": "^1.42.1",
-		"@vechain/veworld-mock": "1.0.1"
+		"@vechain/veworld-mock": "1.0.3"
 	}
 }
