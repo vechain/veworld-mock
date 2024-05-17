@@ -99,7 +99,7 @@ const mockCertificateSigner = (msg: { payload: { type: string; content: string }
 				throw new Error('Private key is null');
 			}
 			const address = childNode.address;
-			window['veworld-mock-output'].address = address;
+			window['veworld-mock-output'].address = address.toLocaleLowerCase();
 			const cert = {
 				domain: window.location.hostname,
 				payload: msg.payload,
