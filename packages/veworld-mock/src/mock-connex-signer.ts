@@ -3,6 +3,7 @@ import {
     blake2b256,
     certificate,
     HDNode,
+    Hex,
     secp256k1,
     TransactionClause,
     TransactionHandler
@@ -47,9 +48,10 @@ const mockTxSender = async (txMessage: TransactionClause[], txOptions: any) => {
             value: clause.value,
         }));
 
+        // TODO: make method from it
         // derive key and address
         const hdNode = HDNode.fromMnemonic(window['veworld-mock-config'].mnemonicWords!);
-        const childNode = hdNode.derive(String(window['veworld-mock-config'].accountIndex!));
+        const childNode = hdNode.deriveChild(window['veworld-mock-config'].accountIndex!);
         const privateKey = childNode.privateKey;
         if (privateKey === null) {
             console.log('Error: Private key is null');
@@ -105,14 +107,14 @@ const mockCertificateSigner = (msg: { payload: { type: string; content: string }
     if (certType === 'valid' || certType === 'invalid') {
         try {
             const hdNode = HDNode.fromMnemonic(window['veworld-mock-config'].mnemonicWords!);
-            const childNode = hdNode.derive(String(window['veworld-mock-config'].accountIndex!));
+            const childNode = hdNode.deriveChild(window['veworld-mock-config'].accountIndex!);
             const privateKey = childNode.privateKey;
             if (privateKey === null) {
                 console.log('[VeWorld-Mock] Error: Private key is null');
                 throw new Error('Private key is null');
             }
-            const address = Address.ofPrivateKey(privateKey).toString();
 
+            const address = Address.ofPrivateKey(privateKey).toString();
             window['veworld-mock-output'].address = address
             const cert = {
                 domain: window.location.hostname,
@@ -133,7 +135,7 @@ const mockCertificateSigner = (msg: { payload: { type: string; content: string }
                     signer: cert.signer,
                     timestamp: cert.timestamp,
                 },
-                signature: `0x${signature.toString()}`,
+                signature: Hex.of(signature).toString(),
             };
         } catch (e) {
             console.log(`Error signing certificate: ${e}`);
