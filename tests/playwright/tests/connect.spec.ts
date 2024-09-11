@@ -8,6 +8,7 @@ test.describe('Wallet Connect', () => {
         await veWorldMockClient.load(page);
         await page.goto('http://localhost:5003');
         await veWorldMockClient.installMock(page);
+        page.on('console', msg => console.log(msg.text()));
     });
 
     test('Mock can sign valid certificate', async ({page}) => {

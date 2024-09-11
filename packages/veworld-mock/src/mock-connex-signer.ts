@@ -124,7 +124,7 @@ const mockCertificateSigner = (msg: { payload: { type: string; content: string }
             const signature = secp256k1.sign(blake2b256(certificate.encode(cert), "buffer"), privateKey);
 
             if (certType === 'invalid') {
-                console.log('VeWorld-Mock] Returning invalid certificate');
+                console.log('[VeWorld-Mock] Returning invalid certificate');
                 cert.signer = window['veworld-mock-options'].fakeCertSignerAddress!;
             }
             return {
