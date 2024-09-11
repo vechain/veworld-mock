@@ -19,11 +19,11 @@
 		"url": "https://github.com/vechain/veworld-mock.git"
 	},
 	"devDependencies": {
-		"@types/node": "^20.11.30",
-		"typescript": "^5.4.3"
+		"@types/node": "^22.5.4",
+		"typescript": "^5.6.2"
 	},
 	"dependencies": {
-		"@playwright/test": "^1.42.1",
+		"@playwright/test": "^1.47.0",
 		"@vechain/veworld-mock": "1.0.4"
 	}
 }

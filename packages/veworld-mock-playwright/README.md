@@ -16,8 +16,8 @@
 
 ## Playwright E2E
 
-Playwright runs as a node process, whereas the VeWorld mock run inside the browser 
-Two operations are needed: `load`, which loads the VeWorld mock js file into the browser, and `installMock` which sets up the mock functions on the window object. 
+Playwright runs as a node process, whereas the VeWorld mock run inside the browser, so 
+two operations are needed: `load`, which loads the VeWorld mock js file into the browser, and `installMock` which sets up the mock functions on the window object. 
 
 This will need to be done before each test with a beforeEach block:
 
@@ -54,34 +54,22 @@ test('get outputs of mock', async ({ page }) => {
 
 ## Sample App and Tests
 
-To build the test app, veworld mock and vework mock client:
+To build the test app and packages (veworld-mock, veworld-mock-playwright):
 
 `yarn install`  
 `yarn build`
 
-The sample app uses Solo, to launch solo:
+The sample app uses thor solo, to launch use:
 
 `make solo-up`
 
-To launch the sample app (seperte terminal):
+To launch the sample app (separate terminal):
 
 `yarn dev`
 
-the test app is available at: http://localhost:5003/
+The test app is available at: http://localhost:5003/
 
 To run the playwright tests:
 
 `yarn install-browsers`  
 `yarn test`
-
-
-
-
-
-
-
-
-
-
-
-

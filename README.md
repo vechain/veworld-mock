@@ -18,10 +18,10 @@
 
 This repository contains packages:
 
-* test-app : A simple webapp using DappKit & Connex for testing of the mock
-* veworld-mock : The actual mock implementation
-* vework-mock-playwright : A helper packing for using the mock in playwright tests
-* tests : Sample playwright tests using the test-app
+* **test-app:** a simple webapp using DappKit & Connex for testing of the mock
+* **veworld-mock:** the actual mock implementation
+* **veworld-mock-playwright:** a helper package for using the mock in playwright tests
+* **tests:** sample playwright tests using the test-app
 
 See documentation:
 
