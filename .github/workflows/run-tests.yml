@@ -16,23 +16,26 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
+
+            - name: Set up node
+            - uses: actions/setup-node@v4
+              with:
+                node-version: lts/*
             
             - name: Install dependencies
-              run:  |
-                yarn install
-                npx playwright install-deps
+              run:  yarn install
 
             - name: Build
               run: yarn build
+
+            - name: Install Playwright & Browsers
+              run: npx playwright install --with-deps
 
             - name: Start solo
               run: make solo-up
 
             - name: Launch test app
-              run: cd apps/test-app && yarn dev &
-
-            - name: Install browsers
-              run: yarn install-browsers            
+              run: cd apps/test-app && yarn dev
 
             - name: Run tests
               id: run-tests
@@ -45,5 +48,3 @@ jobs:
                 name: playwright-results
                 path: ./tests/playwright/playwright-report
                 retention-days: 5
-
-              
