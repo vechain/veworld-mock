@@ -35,7 +35,7 @@ jobs:
               run: make solo-up
 
             - name: Launch test app
-              run: cd apps/test-app && yarn dev
+              run: cd apps/test-app && yarn dev &
 
             - name: Run tests
               id: run-tests
