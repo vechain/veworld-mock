@@ -1,5 +1,5 @@
-import { Page } from 'playwright';
-import { Locator, expect} from '@playwright/test';
+import {Page} from 'playwright';
+import {Locator, expect} from '@playwright/test';
 
 
 /**
@@ -12,9 +12,8 @@ export class TestApp {
     readonly walletAddress: Locator
     readonly validCertificate: Locator
     readonly testTxButton: Locator
-    readonly txidAlert: Locator
+    readonly txIdAlert: Locator
     readonly revertedAlert: Locator
-
 
     constructor(page: Page) {
         this.page = page
@@ -23,7 +22,7 @@ export class TestApp {
         this.walletAddress = page.locator('css=span.wallet-address').first()
         this.validCertificate = page.locator('css=div#cert-alert').first()
         this.testTxButton = page.locator('css=button#test-tx').first()
-        this.txidAlert = page.locator('css=div#txid-alert').first()
+        this.txIdAlert = page.locator('css=div#txid-alert').first()
         this.revertedAlert = page.locator('css=div#reverted-alert').first()
     }
 
@@ -54,11 +53,11 @@ export class TestApp {
     }
 
     async expectTxidToBeVisible() {
-        await expect(this.txidAlert).toBeVisible()
+        await expect(this.txIdAlert).toBeVisible()
     }
 
     async expectTxIdToBe(txid: string) {
-        await expect(this.txidAlert).toContainText(txid)
+        await expect(this.txIdAlert).toContainText(txid)
     }
 
     async expectTxRevertedVisible() {
@@ -67,9 +66,7 @@ export class TestApp {
     }
 
     async expectTxRejectedToBeVisible() {
-        await expect(this.txidAlert).toBeVisible()
-        await expect(this.txidAlert).toContainText('User cancelled request')
+        await expect(this.txIdAlert).toBeVisible()
+        await expect(this.txIdAlert).toContainText('User cancelled request')
     }
-
-
 }

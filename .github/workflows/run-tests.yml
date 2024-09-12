@@ -15,15 +15,21 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
+
+            - name: Set up node
+              uses: actions/setup-node@v4
+              with:
+                node-version: lts/*
             
             - name: Install dependencies
-              run:  |
-                yarn install
-                npx playwright install-deps
+              run:  yarn install
 
             - name: Build
               run: yarn build
+
+            - name: Install Playwright & Browsers
+              run: npx playwright install --with-deps
 
             - name: Start solo
               run: make solo-up
@@ -31,18 +37,14 @@ jobs:
             - name: Launch test app
               run: cd apps/test-app && yarn dev &
 
-            - name: Install browsers
-              run: yarn install-browsers            
-
             - name: Run tests
               id: run-tests
               run: yarn test
 
             - name: Upload test results
-              uses: actions/upload-artifact@v2
+              if: always()
+              uses: actions/upload-artifact@v4
               with:
                 name: playwright-results
                 path: ./tests/playwright/playwright-report
                 retention-days: 5
-
-              

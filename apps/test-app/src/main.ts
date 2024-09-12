@@ -43,7 +43,7 @@ const vechainDAppKitOptions = {
 const connexInstance = new Connex({ node: 'http://localhost:8669', network: soloGenesis})
 
 const validCert = (cert: Certificate): boolean => {
-    let isValid = false;
+    let isValid: boolean;
     try {
         Certificate.verify(cert);
         isValid = true;
@@ -56,7 +56,7 @@ const validCert = (cert: Certificate): boolean => {
 DAppKitUI.configure(vechainDAppKitOptions);
 const testTxButton = document.getElementById('test-tx');
 const certAlert = document.getElementById('cert-alert');
-const txidAlert = document.getElementById('txid-alert');
+const txIdAlert = document.getElementById('txid-alert');
 const revertedAlert = document.getElementById('reverted-alert');
 
 if (testTxButton && certAlert) {
@@ -77,15 +77,15 @@ if (testTxButton && certAlert) {
                 // display error
                 let message = 'Unknown error';
                 if (error instanceof Error) message = error.message;
-                txidAlert!.removeAttribute('hidden');
-                txidAlert!.innerText = `Transaction Error: ${message}`;
+                txIdAlert!.removeAttribute('hidden');
+                txIdAlert!.innerText = `Transaction Error: ${message}`;
                 return;
             }
             // get tx id
             const txid = txResponse.txid;
             // display tx id
-            txidAlert!.removeAttribute('hidden');
-            txidAlert!.innerText = `Transaction ID: ${txid}`;
+            txIdAlert!.removeAttribute('hidden');
+            txIdAlert!.innerText = `Transaction ID: ${txid}`;
             // display if reverted
             const ticker = connexInstance.thor.ticker();
             await ticker.next();
@@ -115,7 +115,7 @@ if (testTxButton && certAlert) {
         } else {
             testTxButton!.setAttribute('disabled', 'true');
             certAlert!.setAttribute('hidden', 'true');
-            txidAlert!.setAttribute('hidden', 'true');
+            txIdAlert!.setAttribute('hidden', 'true');
             revertedAlert!.setAttribute('hidden', 'true');
         }
     };

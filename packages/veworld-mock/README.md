@@ -22,7 +22,7 @@ VeWorld mock allows to develop e2e tests for dApps that interact with VeWorld br
 
 dApp's and VeWorld browser wallet communicate through the `window` object to each other. Specifically
 VeWorld makes functions available on the `window` object that a dApp can call. These functions
-are for certificate signing and transaction signing and sending to vechain thor.
+are for certificate signing and transaction signing and sending to VeChain Thor.
 
 VeWorld Mock replaces those functions with its own implementation, meaning that VeWorld browser wallet
 is not needed to be installed when running playwright tests, and the mock implementations of these
@@ -39,12 +39,12 @@ Add the dependencies to your project
 
 VeWorld mock has the following configuration:
 
-- `accountIndex` : The account index derived from the mnemonic
-- `chainTag` : The chain tag of the thor instance used
-- `mnemonicWords` : The mnemonic used to derived the account index
-- `thorUrl` : Url of thorest api
+- `accountIndex` : the account index derived from the mnemonic
+- `chainTag` : the chain tag of the thor instance used
+- `mnemonicWords` : the mnemonic used to derive the account index
+- `thorUrl` : URL of Thorest api
 
-By default VeWorld mock is configured to use a local Solo, with its default mnemonic and its first account
+By default, VeWorld mock is configured to use a local Solo, with its default mnemonic and its first account.
 
 ## Options
 
@@ -53,11 +53,11 @@ VeWorld mock has the following options:
 ### Transactions
 
 * `mockTransaction`: specifies the type of transaction to create, values are {real, fake, reject}
-  * `real` --> The mock will create a real transaction
-  * `fake` --> The mock will return the configured fake transaction id
-  * `reject` --> The mock will return an error similar to when the user clicks on Reject in VeWorld 
-* `fakeTxId` --> The transaction id to use when using `fake`
-* `gasMultiplier` : When using `real` or `fake` the gas % multiplier to use when estimating the transaction gas
+  * `real` --> the mock will create a real transaction
+  * `fake` --> the mock will return the configured fake transaction id
+  * `reject` --> the mock will return an error similar to when the user clicks on Reject in VeWorld 
+* `fakeTxId` --> the transaction id to use when using `fake`
+* `gasMultiplier` : when using `real` or `fake` the gas % multiplier to use when estimating the transaction gas
 
 The default values are: 
 
@@ -69,16 +69,14 @@ mockCertificate: 'valid',
 gasMultiplier: 0.2
 ```
 
-(Note: To generate a reverted tx, a vet transfer clause of 10billion is added to the tx)
+(**Note:** To generate a reverted tx, a vet transfer clause of 10 billion is added to the tx)
 
 ### Certificates
 
-* `mockCertificate` : Specified how to mock the certificate signing, values are {valid, invalid}
-  * `valid` --> Certificate will be signed correctly
-  * `invalid` --> The certificate is signed correctly, but the `signer` is set to the fake address
-* `fakeCertSignerAddress` --> When using `invalid` the fake signer address
-
-
+* `mockCertificate` : specified how to mock the certificate signing, values are {valid, invalid}
+  * `valid` --> certificate will be signed correctly
+  * `invalid` --> yhe certificate is signed correctly, but the `signer` is set to the fake address
+* `fakeCertSignerAddress` --> when using `invalid` the fake signer address
 
 ## Outputs
 
