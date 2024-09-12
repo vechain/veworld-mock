@@ -1,6 +1,6 @@
 {
 	"name": "@vechain/veworld-mock-playwright",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "VeWorld Mock client for playwright",
 	"main": "dist/client.js",
 	"scripts": {
