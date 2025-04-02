@@ -30,7 +30,16 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <div class="label">Send test tx:</div>
         <div id="txid-alert" class="alert alert-primary" role="alert" hidden></div>
         <div id="reverted-alert" class="alert alert-primary" role="alert" hidden></div>
+        <div id="typed-data-signature" class="alert alert-primary" role="alert" hidden></div>
         <button type="button" class="btn btn-light" id="test-tx" disabled>Test Transaction</button>
+        <button
+            type="button"
+            class="btn btn-light"
+            id="test-sign-typed-data"
+            disabled
+        >
+            Test Signed Typed Data
+        </button>
     </div>
 `;
 
