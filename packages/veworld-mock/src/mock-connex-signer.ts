@@ -1,15 +1,14 @@
 import {
     Address,
-    blake2b256,
-    certificate,
-    HDNode,
-    Hex,
-    secp256k1,
+    HDKey,
+    Certificate,
     TransactionClause,
-    TransactionHandler
+    Transaction,
+    HexUInt,
 } from '@vechain/sdk-core';
-import {HttpClient, ThorClient} from '@vechain/sdk-network';
-import {Buffer} from "buffer";
+import {
+    ThorClient,
+} from '@vechain/sdk-network';
 
 class Rejected extends Error {
     constructor(message: string) {
@@ -40,8 +39,7 @@ const mockTxSender = async (txMessage: TransactionClause[], txOptions: any) => {
     if (txType === 'revert' || txType === 'real') {
         console.log(`[VeWorld-Mock] creating real transaction`);
         // build tx object - ignore tx options for now
-        const httpClient = new HttpClient(window['veworld-mock-config'].thorUrl!);
-        const thorClient = new ThorClient(httpClient);
+        const thorClient = ThorClient.at(window['veworld-mock-config'].thorUrl!);
         const clauses = txMessage.map((clause) => ({
             data: clause.data || '0x',
             to: clause.to,
@@ -50,8 +48,10 @@ const mockTxSender = async (txMessage: TransactionClause[], txOptions: any) => {
 
         // TODO: make method from it
         // derive key and address
-        const hdNode = HDNode.fromMnemonic(window['veworld-mock-config'].mnemonicWords!);
-        const childNode = hdNode.deriveChild(window['veworld-mock-config'].accountIndex!);
+        const childNode = HDKey.fromMnemonic(
+            window['veworld-mock-config'].mnemonicWords!,
+            HDKey.VET_DERIVATION_PATH
+        ).deriveChild(window['veworld-mock-config'].accountIndex!)
         const privateKey = childNode.privateKey;
         if (privateKey === null) {
             console.log('Error: Private key is null');
@@ -86,8 +86,9 @@ const mockTxSender = async (txMessage: TransactionClause[], txOptions: any) => {
             nonce: 0,
         };
         // sign and send tx
-        const rawNormalSigned = TransactionHandler.sign(txBody, Buffer.from(privateKey)).encoded;
-        const send = await thorClient.transactions.sendRawTransaction(`0x${rawNormalSigned.toString('hex')}`);
+        const raw = Transaction.of(txBody).sign(privateKey).encoded;
+        const send = await thorClient.transactions
+            .sendRawTransaction(HexUInt.of(raw).toString());
         const txId = send.id;
         // record txId
         window['veworld-mock-output'].txId = txId;
@@ -106,8 +107,10 @@ const mockCertificateSigner = (msg: { payload: { type: string; content: string }
 
     if (certType === 'valid' || certType === 'invalid') {
         try {
-            const hdNode = HDNode.fromMnemonic(window['veworld-mock-config'].mnemonicWords!);
-            const childNode = hdNode.deriveChild(window['veworld-mock-config'].accountIndex!);
+            const childNode = HDKey.fromMnemonic(
+                window['veworld-mock-config'].mnemonicWords!,
+                HDKey.VET_DERIVATION_PATH
+            ).deriveChild(window['veworld-mock-config'].accountIndex!)
             const privateKey = childNode.privateKey;
             if (privateKey === null) {
                 console.log('[VeWorld-Mock] Error: Private key is null');
@@ -116,26 +119,27 @@ const mockCertificateSigner = (msg: { payload: { type: string; content: string }
 
             const address = Address.ofPrivateKey(privateKey).toString();
             window['veworld-mock-output'].address = address
-            const cert = {
+            const certData = {
                 domain: window.location.hostname,
                 payload: msg.payload,
                 purpose: msg.purpose,
                 signer: address,
                 timestamp: Math.floor(Date.now() / 1000),
             };
-            const signature = secp256k1.sign(blake2b256(certificate.encode(cert), "buffer"), privateKey);
+            const certificate = Certificate.of(certData)
+            certificate.sign(privateKey)
 
             if (certType === 'invalid') {
                 console.log('[VeWorld-Mock] Returning invalid certificate');
-                cert.signer = window['veworld-mock-options'].fakeCertSignerAddress!;
+                certData.signer = window['veworld-mock-options'].fakeCertSignerAddress!;
             }
             return {
                 annex: {
-                    domain: cert.domain,
-                    signer: cert.signer,
-                    timestamp: cert.timestamp,
+                    domain: certData.domain,
+                    signer: certData.signer,
+                    timestamp: certData.timestamp,
                 },
-                signature: Hex.of(signature).toString(),
+                signature: certificate.signature,
             };
         } catch (e) {
             console.log(`Error signing certificate: ${e}`);

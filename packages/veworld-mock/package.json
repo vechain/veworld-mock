@@ -27,8 +27,8 @@
 		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
-		"@vechain/sdk-core": "^1.0.0-beta.30",
-		"@vechain/sdk-network": "^1.0.0-beta.30",
+		"@vechain/sdk-core": "^1.1.0",
+		"@vechain/sdk-network": "^1.1.0",
 		"bignumber.js": "^9.1.2",
 		"buffer": "^6.0.3",
 		"crypto-browserify": "^3.12.0",
