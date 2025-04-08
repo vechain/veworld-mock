@@ -2,7 +2,7 @@ import {test} from '@playwright/test';
 import {veWorldMockClient} from '@vechain/veworld-mock-playwright';
 import {TestApp} from '../model/testApp';
 
-test.describe.only('Typed data', () => {
+test.describe('Typed data', () => {
 
     test.beforeEach(async ({page}) => {
         await veWorldMockClient.load(page);
