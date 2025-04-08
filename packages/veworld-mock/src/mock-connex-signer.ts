@@ -10,6 +10,7 @@ import {
 import {
     ThorClient,
     TypedDataDomain,
+    TypedDataParameter,
     VeChainPrivateKeySigner,
     VeChainProvider
 } from '@vechain/sdk-network';
@@ -153,76 +154,24 @@ const mockCertificateSigner = (msg: { payload: { type: string; content: string }
     throw new Error('[VeWorld-Mock] Invalid cert type');
 }
 
-const mockTypedDataSigner = () => {
-    const EIP712_CONTRACT = '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC';
-    const EIP712_FROM = '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826';
-    const EIP712_TO = '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB';
-    const EIP712_PRIVATE_KEY = '0xc85ef7d79691fe79573b1a7064c19c1a9819ebdbd1faaab1a8ec92344438aaf4';
-    const fixture = {
-        name: 'EIP712 example',
-        domain: {
-            name: 'Ether Mail',
-                version: '1',
-                chainId: 1,
-                verifyingContract: EIP712_CONTRACT
-        },
-        primaryType: 'Mail',
-        types: {
-        Person: [
-            {
-                name: 'name',
-                type: 'string'
-            },
-            {
-                name: 'wallet',
-                type: 'address'
-            }
-        ],
-        Mail: [
-        {
-            name: 'from',
-            type: 'Person'
-        },
-        {
-            name: 'to',
-            type: 'Person'
-        },
-        {
-            name: 'contents',
-            type: 'string'
-        }
-    ]
-        },
-        data: {
-            from: {
-                name: 'Cow',
-                    wallet: EIP712_FROM
-            },
-            to: {
-                name: 'Bob',
-                    wallet: EIP712_TO
-            },
-            contents: 'Hello, Bob!'
-        },
-        encoded:
-            '0xa0cedeb2dc280ba39b857546d74f5549c3a1d7bdc2dd96bf881f76108e23dac2fc71e5fa27ff56c350aa531bc129ebdf613b772b6604664f5d8dbe21b85eb0c8cd54f074a4af31b4411ff6a60c9719dbd559c221c8ac3492d9d872b041d703d1b5aadf3154a261abdd9086fc627b61efca26ae5702701d05cd2305f7c52a2fc8',
-                digest: '0xbe609aee343fb3c4b28e1df9e632fca64fcfaede20f02e86244efddf30957bd2',
-            privateKey: EIP712_PRIVATE_KEY,
-            signature:
-        '0x4355c47d63924e8a72e509b65029052eb6c299d53a04e167c5775fd466751c9d07299936d304c153f6443dfa05f40ff007d72911b6f72307f996231605b915621c'
-    }
-
+const mockTypedDataSigner = (
+    domain: TypedDataDomain,
+    types: Record<string, TypedDataParameter[]>,
+    message: Record<string, unknown>,
+    primaryType?: string
+) => {
+    const wallet = HDKey.fromMnemonic(
+        window['veworld-mock-config'].mnemonicWords!,
+        HDKey.VET_DERIVATION_PATH
+    ).deriveChild(window['veworld-mock-config'].accountIndex!)
     const provider = new VeChainProvider(ThorClient.at(window['veworld-mock-config'].thorUrl!))
+
     const signer = new VeChainPrivateKeySigner(
-        Hex.of(EIP712_PRIVATE_KEY).bytes,
+        Hex.of(wallet.privateKey).bytes,
         provider
     )
-    return signer.signTypedData(
-        fixture.domain as TypedDataDomain,
-        fixture.types,
-        fixture.data,
-        fixture.primaryType,
-    )
+
+    return signer.signTypedData(domain, types, message, primaryType)
 }
 
 // Mocks the newConnexSigner object
@@ -239,7 +188,12 @@ export const mockConnexSigner = {
         });
     },
 
-    async signTypedData() {
-        return Promise.resolve(mockTypedDataSigner());
+    async signTypedData(
+        domain: TypedDataDomain,
+        types: Record<string, TypedDataParameter[]>,
+        message: Record<string, unknown>,
+        primaryType?: string
+    ) {
+        return Promise.resolve(mockTypedDataSigner(domain, types, message, primaryType));
     },
 };
