@@ -1,6 +1,6 @@
-import { DAppKitUI } from '@vechain/dapp-kit-ui';
-import { Certificate } from 'thor-devkit';
-import { Connex } from '@vechain/connex'
+import {DAppKitUI} from '@vechain/dapp-kit-ui';
+import {Certificate} from 'thor-devkit';
+import {Connex} from '@vechain/connex'
 
 const soloGenesis = {
     "number": 0,
@@ -30,16 +30,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <div class="label">Send test tx:</div>
         <div id="txid-alert" class="alert alert-primary" role="alert" hidden></div>
         <div id="reverted-alert" class="alert alert-primary" role="alert" hidden></div>
-        <div id="typed-data-signature" class="alert alert-primary" role="alert" hidden></div>
         <button type="button" class="btn btn-light" id="test-tx" disabled>Test Transaction</button>
-        <button
-            type="button"
-            class="btn btn-light"
-            id="test-sign-typed-data"
-            disabled
-        >
-            Test Signed Typed Data
-        </button>
+        <div class="label">Sign typed data:</div>
+        <div id="sign-data-alert" class="alert alert-primary" role="alert" hidden></div>
+        <div id="sign-data-error" class="alert alert-primary" role="alert" hidden></div>
+        <input id="sign-data-input" placeholder="Plain text message">
+        <button type="button" class="btn btn-light" id="sign-data-button" disabled> Test Data Signing</button>
     </div>
 `;
 
@@ -67,8 +63,12 @@ const testTxButton = document.getElementById('test-tx');
 const certAlert = document.getElementById('cert-alert');
 const txIdAlert = document.getElementById('txid-alert');
 const revertedAlert = document.getElementById('reverted-alert');
+const inputSignData = document.getElementById('sign-data-input') as HTMLInputElement;
+const testSignDataButton = document.getElementById('sign-data-button');
+const signDataAlert = document.getElementById('sign-data-alert');
+const signDataError = document.getElementById('sign-data-error');
 
-if (testTxButton && certAlert) {
+if (testTxButton && certAlert && testSignDataButton && inputSignData) {
 
     testTxButton.addEventListener('click', async () => {
         const testTx = [{
@@ -113,6 +113,42 @@ if (testTxButton && certAlert) {
             console.error('error', error);
         }
     });
+
+    inputSignData.addEventListener('input', () => {
+        if (inputSignData.value === '') {
+            console.log('empty string')
+            testSignDataButton!.setAttribute('disabled', 'true')
+        } else {
+            testSignDataButton!.removeAttribute('disabled')
+        }
+    });
+
+
+    testSignDataButton.addEventListener('click', async () => {
+        try {
+            const input = inputSignData.value.trim();
+
+            if (input) {
+                signDataAlert!.textContent = await DAppKitUI.wallet?.signTypedData(
+                    {
+                        name: 'Test Data',
+                        version: '1',
+                        chainId: 1,
+                        verifyingContract: '0x435933c8064b4Ae76bE665428e0307eF2cCFBD68',
+                    },
+                    {test: [{name: 'message', type: 'string'}]},
+                    {message: input},
+                    {},
+                );
+                signDataAlert!.removeAttribute('hidden');
+            } else {
+                signDataError!.textContent = 'Error: invalid data input';
+                signDataError!.removeAttribute('hidden');
+            }
+        } catch (error) {
+            console.error('error', error);
+        }
+    })
 
     const handleConnected = (address: string | null) => {
         if (address) {
