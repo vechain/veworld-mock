@@ -14,6 +14,9 @@ export class TestApp {
     readonly testTxButton: Locator
     readonly txIdAlert: Locator
     readonly revertedAlert: Locator
+    readonly signDataInput: Locator
+    readonly testSignDataButton: Locator
+    readonly signDataAlert: Locator
 
     constructor(page: Page) {
         this.page = page
@@ -24,6 +27,9 @@ export class TestApp {
         this.testTxButton = page.locator('css=button#test-tx').first()
         this.txIdAlert = page.locator('css=div#txid-alert').first()
         this.revertedAlert = page.locator('css=div#reverted-alert').first()
+        this.signDataInput = page.locator('#sign-data-input')
+        this.testSignDataButton = page.locator('#sign-data-button')
+        this.signDataAlert = page.locator('#sign-data-alert')
     }
 
     async clickConnectWalletButton() {
@@ -68,5 +74,15 @@ export class TestApp {
     async expectTxRejectedToBeVisible() {
         await expect(this.txIdAlert).toBeVisible()
         await expect(this.txIdAlert).toContainText('User cancelled request')
+    }
+
+    async submitDataToSign() {
+        await this.signDataInput.fill('foobar')
+        await this.testSignDataButton.click()
+    }
+
+    async expectSignedDataToBeVisible() {
+        await expect(this.signDataAlert).toBeVisible()
+        await expect(this.signDataAlert).not.toBeEmpty()
     }
 }
