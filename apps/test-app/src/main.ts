@@ -116,7 +116,6 @@ if (testTxButton && certAlert && testSignDataButton && inputSignData) {
 
     inputSignData.addEventListener('input', () => {
         if (inputSignData.value === '') {
-            console.log('empty string')
             testSignDataButton!.setAttribute('disabled', 'true')
         } else {
             testSignDataButton!.removeAttribute('disabled')
@@ -136,8 +135,8 @@ if (testTxButton && certAlert && testSignDataButton && inputSignData) {
                         chainId: 1,
                         verifyingContract: '0x435933c8064b4Ae76bE665428e0307eF2cCFBD68',
                     },
-                    {test: [{name: 'message', type: 'string'}]},
-                    {message: input},
+                    { test: [{ name: 'message', type: 'string' }] },
+                    { message: input },
                     {},
                 );
                 signDataAlert!.removeAttribute('hidden');
@@ -146,6 +145,8 @@ if (testTxButton && certAlert && testSignDataButton && inputSignData) {
                 signDataError!.removeAttribute('hidden');
             }
         } catch (error) {
+            signDataError!.textContent = (error as Error).message;
+            signDataError!.removeAttribute('hidden');
             console.error('error', error);
         }
     })

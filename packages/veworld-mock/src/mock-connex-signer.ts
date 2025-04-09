@@ -158,7 +158,7 @@ const mockTypedDataSigner = (
     domain: TypedDataDomain,
     types: Record<string, TypedDataParameter[]>,
     message: Record<string, unknown>,
-    primaryType?: string
+    primaryType?: any
 ) => {
     const wallet = HDKey.fromMnemonic(
         window['veworld-mock-config'].mnemonicWords!,
@@ -171,7 +171,12 @@ const mockTypedDataSigner = (
         provider
     )
 
-    return signer.signTypedData(domain, types, message, primaryType)
+    return signer.signTypedData(
+        domain,
+        types,
+        message,
+        typeof primaryType === 'string' ? primaryType : undefined
+    )
 }
 
 // Mocks the newConnexSigner object
