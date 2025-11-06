@@ -26,5 +26,10 @@
     "turbo": "^2.1.1",
     "typescript": "^5.6.2"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@1.22.22",
+  "resolutions": {
+    "elliptic": "6.6.1",
+    "cipher-base": "1.0.5",
+    "sha.js": "2.4.12"
+  }
 }
